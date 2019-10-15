@@ -1,0 +1,12 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="MyMaterialTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="colorPrimary">#0C8111</item>
+        <item name="colorPrimaryDark">#1BCA22</item>
+        <item name="colorAccent">#ffffff</item>
+    </style>
+
+</resources>
