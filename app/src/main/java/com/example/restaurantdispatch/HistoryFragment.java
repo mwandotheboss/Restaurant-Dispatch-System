@@ -12,7 +12,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 /**
- * A simple {@link Fragment} subclass.
+ * HistoryFragment.java - A class that displays the history of previous dispatches
+ *
+ * @version 1.0
+ * @author Zephania Mwando
  */
 public class HistoryFragment extends Fragment {
 

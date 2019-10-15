@@ -13,10 +13,9 @@ import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
- * MainActivity.java - A class
+ * MainActivity.java - App entry point
  *
  * @version 1.0
  * @Author Zephania Mwando
@@ -56,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new HomeFragment(), "ORDERS");
+        adapter.addFragment(new OrdersFragment(), "ORDERS");
         adapter.addFragment(new HistoryFragment(), "HISTORY");
         viewPager.setAdapter(adapter);
     }
