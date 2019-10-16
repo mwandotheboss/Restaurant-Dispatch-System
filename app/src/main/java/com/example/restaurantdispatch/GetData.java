@@ -7,7 +7,7 @@ import retrofit2.http.GET;
 
 public interface GetData {
     //Request type
-    @GET("https://www.getpostman.com/collections/8cd41b2c738ac158c06f")
+    @GET("/v1/dispatch/orders")
     //Response in a call object
     Call<List<ModelClass>> getAllOrders();
 }

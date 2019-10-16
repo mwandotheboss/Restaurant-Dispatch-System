@@ -1,5 +1,6 @@
 package com.example.restaurantdispatch;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -111,6 +112,7 @@ public class OrdersFragment extends Fragment implements SwipeRefreshLayout.OnRef
             handler.postDelayed(this::checkConnectionStatus, 1000);
 
             swipeRefreshLayout.setRefreshing(false);
+            swipeRefreshLayout.setColorSchemeColors(Color.GREEN, Color.WHITE, Color.GRAY );
         });
     }
 
