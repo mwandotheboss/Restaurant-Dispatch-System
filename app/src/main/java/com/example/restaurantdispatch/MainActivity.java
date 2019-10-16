@@ -55,8 +55,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new OrdersFragment(), "ORDERS");
-        adapter.addFragment(new HistoryFragment(), "HISTORY");
+        adapter.addFragment(new OrdersFragment(), "PENDING ORDERS");
+        adapter.addFragment(new HistoryFragment(), "ORDER HISTORY");
         viewPager.setAdapter(adapter);
     }
 
