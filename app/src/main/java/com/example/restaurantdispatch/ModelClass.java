@@ -4,67 +4,40 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * ModelClass.java - Reflects the structure of JSON responses from the API
+ * ModelClass.java - Model class to access the outer nodes of JSON
  *
- * @author Zephania Mwando
  * @version 1.0
+ * @author Zephania Mwando
  */
-
 public class ModelClass {
+    @SerializedName("status")
     @Expose
-    @SerializedName("id")
-    private String id;
+    private String status;
+    @SerializedName("data")
     @Expose
-    @SerializedName("name")
-    private String name;
-    @Expose
-    @SerializedName("url")
-    private String url;
-    @Expose
-    @SerializedName("description")
-    private String description;
+    private Data data;
 
-    //Default constructor
-    public ModelClass() {
-
+    public String getStatus() {
+        return status;
     }
 
-    public ModelClass(String id, String name, String url, String description) {
-        this.id = id;
-        this.name = name;
-        this.url = url;
-        this.description = description;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public String getId() {
-        return id;
+    public Data getData() {
+        return data;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setData(Data data) {
+        this.data = data;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    @Override
+    public String toString() {
+        return "ModelClass{" +
+                "status='" + status + '\'' +
+                ", data=" + data +
+                '}';
     }
 }

@@ -1,30 +1,27 @@
 package com.example.restaurantdispatch;
 
-import android.graphics.Color;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.Toast;
 
-import com.google.android.material.snackbar.Snackbar;
-
-import java.util.List;
-import java.util.Objects;
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+import static androidx.constraintlayout.widget.Constraints.TAG;
 
 /**
  * OrdersFragment.java - A class that displays all orders
@@ -33,9 +30,10 @@ import retrofit2.Response;
  * @version 1.0
  */
 
-public class OrdersFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class OrdersFragment extends Fragment {
 
-    private SwipeRefreshLayout swipeRefreshLayout;
+    //BaseUrl
+    private static final String baseUrl = "https://demo.kilimanjarofood.co.ke/api/";
 
     private MyAdapter myAdapter;
     private RecyclerView recyclerView;
@@ -48,44 +46,46 @@ public class OrdersFragment extends Fragment implements SwipeRefreshLayout.OnRef
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //Check if there is internet
-        checkConnectionStatus();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(baseUrl)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
-        //Handler for Retrofit Instance
-        GetData service = RetrofitClient
-                .getRetrofitInstance()
-                .create(GetData.class);
+        GetData getData = retrofit.create(GetData.class);
+        Call<ModelClass> call = getData.getOrdersData();
 
-        Call<List<ModelClass>> call = service.getAllOrders();
-
-        //Executing the request asynchronously
-        call.enqueue(new Callback<List<ModelClass>>() {
+        call.enqueue(new Callback<ModelClass>() {
             @Override
-            public void onResponse(Call<List<ModelClass>> call,
-                                   Response<List<ModelClass>> response) {
-                loadDataList(response.body());
+            public void onResponse(Call<ModelClass> call, Response<ModelClass> response) {
+
+                Toast.makeText(getActivity(), "OK" + response, Toast.LENGTH_SHORT).show();
+
+                ArrayList<Orders> ordersList = response.body().getData().getOrders();
+                myAdapter = new MyAdapter(ordersList);
+                recyclerView = getView().findViewById(R.id.pending_orders);
+
+                //Layout manager
+                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+                recyclerView.setLayoutManager(layoutManager);
+                recyclerView.setAdapter(myAdapter);
             }
 
-            //If the request fails
             @Override
-            public void onFailure(Call<List<ModelClass>> call, Throwable t) {
-
+            public void onFailure(Call<ModelClass> call, Throwable t) {
+                Log.e(TAG, "on Failure: Error" + t.getMessage());
                 Toast.makeText(getActivity(),
                         "Unable to load Orders",
                         Toast.LENGTH_SHORT)
                         .show();
-
             }
         });
-
     }
 
-
     //Display the data as a list
-    private void loadDataList(List<ModelClass> ordersList) {
+    private void loadDataList(Response<ModelClass> call) {
         //Reference the RecyclerView
         recyclerView = getView().findViewById(R.id.pending_orders);
-        myAdapter = new MyAdapter(ordersList);
+        //   myAdapter = new MyAdapter(Response<Orders> call);
 
         //Layout manager
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -98,44 +98,6 @@ public class OrdersFragment extends Fragment implements SwipeRefreshLayout.OnRef
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_orders, container, false);
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        swipeRefreshLayout = view.findViewById(R.id.swipeToRefresh);
-
-        //refresh on swipe
-        swipeRefreshLayout.setOnRefreshListener(() -> {
-
-            final Handler handler = new Handler();
-            handler.postDelayed(this::checkConnectionStatus, 1000);
-
-            swipeRefreshLayout.setRefreshing(false);
-            swipeRefreshLayout.setColorSchemeColors(Color.GREEN, Color.WHITE, Color.GRAY );
-        });
-    }
-
-    @Override
-    public void onRefresh() {
-        checkConnectionStatus();
-    }
-
-    //Checking internet connection state
-    private void checkConnectionStatus() {
-
-        if (ConnectionChecker.isConnectedToNetwork(Objects.requireNonNull(getContext()))) {
-
-            Toast.makeText(getActivity(),
-                    "Internet Connection",
-                    Toast.LENGTH_SHORT)
-                    .show();
-        } else {
-            Toast.makeText(getActivity(),
-                    "NETWORK ERROR! Please check your Internet connection",
-                    Toast.LENGTH_SHORT)
-                    .show();
-        }
     }
 
 }

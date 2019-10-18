@@ -9,42 +9,50 @@
     app:cardUseCompatPadding="true">
 
     <LinearLayout
-        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tvName"
-            android:fontFamily="sans-serif"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#000000"
-            android:text="Name" />
-
-        <TextView
             android:id="@+id/tvID"
-            android:fontFamily="sans-serif"
-            android:textColor="#000000"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ID" />
+            android:fontFamily="sans-serif"
+            android:text="ID"
+            android:textColor="#000000" />
 
         <TextView
-            android:id="@+id/tvURL"
-            android:fontFamily="sans-serif"
-            android:textColor="#000000"
+            android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="URL" />
+            android:fontFamily="sans-serif"
+            android:text="Name"
+            android:textColor="#000000" />
 
         <TextView
-            android:textColor="#000000"
+            android:id="@+id/tvDispatchStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:fontFamily="sans-serif"
+            android:text="Dispatch Status"
+            android:textColor="#000000" />
+
+        <TextView
             android:id="@+id/tvDescription"
-            android:text="Description"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:text="Description"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/tvTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:text="Total"
+            android:textColor="#000000" />
 
     </LinearLayout>
 

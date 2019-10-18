@@ -11,6 +11,10 @@ Current Version: 1.0
 
 Author: Zephania Mwando
 
+Environment: Android Studio
+
+Language:Android JAVA and XML
+
 #Features
 
 1. Display of undispatched orders,
@@ -26,5 +30,5 @@ Author: Zephania Mwando
 
 1. Data from API end point is received and displayed  by the help of Retrofit and Gson helpers
 
-2. RecyclerView used to display the information
+2. RecyclerView used to display the information from the API
 

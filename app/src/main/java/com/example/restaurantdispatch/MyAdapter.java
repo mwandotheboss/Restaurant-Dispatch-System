@@ -11,9 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.CustomViewHolder> {
-    private List<ModelClass> ordersList;
+    private List<Orders> ordersList;
 
-    public MyAdapter(List<ModelClass> ordersList) {
+    public MyAdapter(List<Orders> ordersList) {
         this.ordersList = ordersList;
     }
 
@@ -23,8 +23,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.CustomViewHolder> 
         public final View mView;
         TextView orderID;
         TextView orderName;
-        TextView orderURL;
+        TextView orderDispatchStatus;
         TextView orderDescription;
+        TextView orderTotal;
 
         CustomViewHolder(View itemView) {
             super(itemView);
@@ -32,8 +33,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.CustomViewHolder> 
 
             orderID = mView.findViewById(R.id.tvID);
             orderName = mView.findViewById(R.id.tvName);
-            orderURL = mView.findViewById(R.id.tvURL);
+            orderDispatchStatus = mView.findViewById(R.id.tvDispatchStatus);
             orderDescription = mView.findViewById(R.id.tvDescription);
+            orderTotal = mView.findViewById(R.id.tvTotal);
 
         }
     }
@@ -52,8 +54,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.CustomViewHolder> 
             (@NonNull CustomViewHolder holder, int position) {
         holder.orderID.setText(ordersList.get(position).getId());
         holder.orderName.setText(ordersList.get(position).getName());
-        holder.orderURL.setText(ordersList.get(position).getUrl());
+        holder.orderDispatchStatus.setText(ordersList.get(position).getDispatchStatus());
         holder.orderDescription.setText(ordersList.get(position).getDescription());
+        holder.orderTotal.setText(ordersList.get(position).getTotal());
 
     }
 
