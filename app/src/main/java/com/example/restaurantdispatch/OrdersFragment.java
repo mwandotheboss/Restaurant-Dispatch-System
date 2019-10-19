@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,7 +36,7 @@ public class OrdersFragment extends Fragment {
     //BaseUrl
     private static final String baseUrl = "https://demo.kilimanjarofood.co.ke/api/";
 
-    private MyAdapter myAdapter;
+    private PendingOrdersAdapter pendingOrdersAdapter;
     private RecyclerView recyclerView;
 
     public OrdersFragment() {
@@ -58,16 +59,18 @@ public class OrdersFragment extends Fragment {
             @Override
             public void onResponse(Call<ModelClass> call, Response<ModelClass> response) {
 
-                Toast.makeText(getActivity(), "OK" + response, Toast.LENGTH_SHORT).show();
+                ArrayList<Orders> ordersList = Objects
+                        .requireNonNull(response.body())
+                        .getData()
+                        .getOrders();
 
-                ArrayList<Orders> ordersList = response.body().getData().getOrders();
-                myAdapter = new MyAdapter(ordersList);
-                recyclerView = getView().findViewById(R.id.pending_orders);
+                pendingOrdersAdapter = new PendingOrdersAdapter(ordersList);
+                recyclerView = Objects.requireNonNull(getView()).findViewById(R.id.pending_orders);
 
                 //Layout manager
                 RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
                 recyclerView.setLayoutManager(layoutManager);
-                recyclerView.setAdapter(myAdapter);
+                recyclerView.setAdapter(pendingOrdersAdapter);
             }
 
             @Override
@@ -79,18 +82,6 @@ public class OrdersFragment extends Fragment {
                         .show();
             }
         });
-    }
-
-    //Display the data as a list
-    private void loadDataList(Response<ModelClass> call) {
-        //Reference the RecyclerView
-        recyclerView = getView().findViewById(R.id.pending_orders);
-        //   myAdapter = new MyAdapter(Response<Orders> call);
-
-        //Layout manager
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(myAdapter);
     }
 
     @Override

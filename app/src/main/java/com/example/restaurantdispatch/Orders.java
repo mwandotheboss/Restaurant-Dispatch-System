@@ -17,15 +17,12 @@ public class Orders {
     @SerializedName("name")
     @Expose
     private String name;
-    @SerializedName("dispatchStatus")
+    @SerializedName("email")
     @Expose
-    private String dispatchStatus;
-    @SerializedName("description")
+    private String email;
+    @SerializedName("dispatch_status")
     @Expose
-    private String description;
-    @SerializedName("total")
-    @Expose
-    private String total;
+    private String dispatch_status;
 
     public String getId() {
         return id;
@@ -43,28 +40,20 @@ public class Orders {
         this.name = name;
     }
 
-    public String getDispatchStatus() {
-        return dispatchStatus;
+    public String getEmail() {
+        return email;
     }
 
-    public void setDispatchStatus(String dispatchStatus) {
-        this.dispatchStatus = dispatchStatus;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getDescription() {
-        return description;
+    public String getDispatch_status() {
+        return dispatch_status;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getTotal() {
-        return total;
-    }
-
-    public void setTotal(String total) {
-        this.total = total;
+    public void setDispatch_status(String dispatch_status) {
+        this.dispatch_status = dispatch_status;
     }
 
     @Override
@@ -72,9 +61,8 @@ public class Orders {
         return "Orders{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
-                ", dispatchStatus='" + dispatchStatus + '\'' +
-                ", description='" + description + '\'' +
-                ", total='" + total + '\'' +
+                ", email='" + email + '\'' +
+                ", dispatch_status='" + dispatch_status + '\'' +
                 '}';
     }
 }

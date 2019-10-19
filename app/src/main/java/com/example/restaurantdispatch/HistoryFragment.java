@@ -4,10 +4,24 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+import static androidx.constraintlayout.widget.Constraints.TAG;
 
 /**
  * HistoryFragment.java - A class that displays the history of previous dispatches
@@ -17,6 +31,12 @@ import android.view.ViewGroup;
  */
 public class HistoryFragment extends Fragment {
 
+    //BaseUrl
+    private static final String baseUrl = "https://demo.kilimanjarofood.co.ke/api/";
+
+    private OrdersHistoryAdapter ordersHistoryAdapter;
+    private RecyclerView recyclerViewHistory;
+
     public HistoryFragment() {
         // Required empty public constructor
     }
@@ -24,6 +44,38 @@ public class HistoryFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(baseUrl)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        GetData getData = retrofit.create(GetData.class);
+        Call<ModelClass> call = getData.getOrdersData();
+
+        call.enqueue(new Callback<ModelClass>() {
+            @Override
+            public void onResponse(Call<ModelClass> call, Response<ModelClass> response) {
+
+                ArrayList<Orders> ordersList = response.body().getData().getOrders();
+                ordersHistoryAdapter = new OrdersHistoryAdapter(ordersList);
+                recyclerViewHistory = getView().findViewById(R.id.previous_orders);
+
+                //Layout manager
+                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+                recyclerViewHistory.setLayoutManager(layoutManager);
+                recyclerViewHistory.setAdapter(ordersHistoryAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<ModelClass> call, Throwable t) {
+                Log.e(TAG, "on Failure: Error" + t.getMessage());
+                Toast.makeText(getActivity(),
+                        "Unable to load Orders",
+                        Toast.LENGTH_SHORT)
+                        .show();
+            }
+        });
     }
 
     @Override

@@ -15,7 +15,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tvID"
+            android:id="@+id/tvOrderId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif"
@@ -23,7 +23,7 @@
             android:textColor="#000000" />
 
         <TextView
-            android:id="@+id/tvName"
+            android:id="@+id/tvUserName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif"
@@ -31,28 +31,21 @@
             android:textColor="#000000" />
 
         <TextView
-            android:id="@+id/tvDispatchStatus"
+            android:id="@+id/tvUserEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:text="Email"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/tvOrderDispatchStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif"
             android:text="Dispatch Status"
             android:textColor="#000000" />
 
-        <TextView
-            android:id="@+id/tvDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif"
-            android:text="Description"
-            android:textColor="#000000" />
-
-        <TextView
-            android:id="@+id/tvTotal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif"
-            android:text="Total"
-            android:textColor="#000000" />
 
     </LinearLayout>
 
