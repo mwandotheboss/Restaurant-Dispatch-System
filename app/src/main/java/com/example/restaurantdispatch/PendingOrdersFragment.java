@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,16 +21,15 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static androidx.constraintlayout.widget.Constraints.TAG;
 
 /**
- * OrdersFragment.java - A class that displays all orders
+ * PendingOrdersFragment.java - A class that displays all orders
  *
  * @author Zephania Mwando
  * @version 1.0
  */
 
-public class OrdersFragment extends Fragment {
+public class PendingOrdersFragment extends Fragment {
 
     //BaseUrl
     private static final String baseUrl = "https://demo.kilimanjarofood.co.ke/api/";
@@ -39,7 +37,7 @@ public class OrdersFragment extends Fragment {
     private PendingOrdersAdapter pendingOrdersAdapter;
     private RecyclerView recyclerView;
 
-    public OrdersFragment() {
+    public PendingOrdersFragment() {
         // Required empty public constructor
     }
 
@@ -53,14 +51,12 @@ public class OrdersFragment extends Fragment {
                 .build();
 
         GetData getData = retrofit.create(GetData.class);
-        Call<ModelClass> call = getData.getOrdersData();
+        Call<ModelClass> call = getData.getOrders();
 
         call.enqueue(new Callback<ModelClass>() {
             @Override
             public void onResponse(Call<ModelClass> call, Response<ModelClass> response) {
-
-                ArrayList<Orders> ordersList = Objects
-                        .requireNonNull(response.body())
+                ArrayList<Orders> ordersList = response.body()
                         .getData()
                         .getOrders();
 
@@ -75,9 +71,9 @@ public class OrdersFragment extends Fragment {
 
             @Override
             public void onFailure(Call<ModelClass> call, Throwable t) {
-                Log.e(TAG, "on Failure: Error" + t.getMessage());
+
                 Toast.makeText(getActivity(),
-                        "Unable to load Orders",
+                        "Unable to load Orders" + t.getMessage(),
                         Toast.LENGTH_SHORT)
                         .show();
             }
@@ -88,7 +84,7 @@ public class OrdersFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_orders, container, false);
+        return inflater.inflate(R.layout.fragment_pending_orders, container, false);
     }
 
 }

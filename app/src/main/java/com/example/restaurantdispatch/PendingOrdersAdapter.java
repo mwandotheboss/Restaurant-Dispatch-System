@@ -61,7 +61,7 @@ public class PendingOrdersAdapter extends RecyclerView.Adapter<PendingOrdersAdap
 
             holder.ordersView.setOnClickListener(view -> {
                 Intent clickOrderIntent = new Intent(view.getContext(),
-                        CartItemsActivity.class);
+                        SingleOrderActivity.class);
                 clickOrderIntent.putExtra("orderId", orderIdentity);
                 view.getContext().startActivity(clickOrderIntent);
             });

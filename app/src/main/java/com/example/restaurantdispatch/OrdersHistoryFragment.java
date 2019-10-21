@@ -24,12 +24,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
 /**
- * HistoryFragment.java - A class that displays the history of previous dispatches
+ * OrdersHistoryFragment.java - A class that displays the history of previous dispatches
  *
  * @author Zephania Mwando
  * @version 1.0
  */
-public class HistoryFragment extends Fragment {
+public class OrdersHistoryFragment extends Fragment {
 
     //BaseUrl
     private static final String baseUrl = "https://demo.kilimanjarofood.co.ke/api/";
@@ -37,7 +37,7 @@ public class HistoryFragment extends Fragment {
     private OrdersHistoryAdapter ordersHistoryAdapter;
     private RecyclerView recyclerViewHistory;
 
-    public HistoryFragment() {
+    public OrdersHistoryFragment() {
         // Required empty public constructor
     }
 
@@ -51,7 +51,7 @@ public class HistoryFragment extends Fragment {
                 .build();
 
         GetData getData = retrofit.create(GetData.class);
-        Call<ModelClass> call = getData.getOrdersData();
+        Call<ModelClass> call = getData.getOrders();
 
         call.enqueue(new Callback<ModelClass>() {
             @Override
@@ -82,6 +82,6 @@ public class HistoryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.history_fragment, container, false);
+        return inflater.inflate(R.layout.fragment_orders_history, container, false);
     }
 }

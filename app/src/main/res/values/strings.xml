@@ -4,4 +4,13 @@
     <string name="restaurant_dispatch">Restaurant Dispatch</string>
     <string name="pending_orders">Pending Orders</string>
     <string name="previous_orders">Previous orders</string>
+    <string name="order_id">Order Id</string>
+    <string name="user_name">User Name</string>
+    <string name="user_email">User Email</string>
+    <string name="dispatch_status">Dispatch Status</string>
+    <string name="total">Total</string>
+    <string name="country_code">Country Code</string>
+    <string name="mobile_number">Mobile Number</string>
+    <string name="time_created">Time Created</string>
+    <string name="time_updated">Time Updated</string>
 </resources>
