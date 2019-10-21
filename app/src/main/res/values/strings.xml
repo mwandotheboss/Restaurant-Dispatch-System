@@ -13,4 +13,5 @@
     <string name="mobile_number">Mobile Number</string>
     <string name="time_created">Time Created</string>
     <string name="time_updated">Time Updated</string>
+    <string name="dispatch_order">Dispatch Order</string>
 </resources>

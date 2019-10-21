@@ -90,23 +90,19 @@
 
     </LinearLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight=".70"
-        android:id="@+id/tvCartItems"/>
-
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvCartItems"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight=".70"
-        android:visibility="gone"/>
+        android:orientation="horizontal"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight=".10"
+        android:id="@+id/buttonDispatch"
         android:background="?attr/colorPrimary"
-        android:text="Dispatch Order" />
+        android:text="@string/dispatch_order" />
 
 </LinearLayout>

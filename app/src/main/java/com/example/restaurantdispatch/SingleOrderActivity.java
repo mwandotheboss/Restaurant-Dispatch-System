@@ -1,20 +1,26 @@
 package com.example.restaurantdispatch;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.POST;
 
 public class SingleOrderActivity extends AppCompatActivity {
 
@@ -31,7 +37,11 @@ public class SingleOrderActivity extends AppCompatActivity {
     private TextView totalAmount;
     private TextView timeCreated;
     private TextView timeUpdated;
-    private TextView cartItems;
+
+    private AppCompatButton buttonDispatchOrder;
+
+    private CartItemsAdapter cartItemsAdapter;
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +49,7 @@ public class SingleOrderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_single_order);
 
         toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle(getString(R.string.app_name));
+        toolbar.setTitle(getString(R.string.dispatch));
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
         toolbar.setNavigationOnClickListener(view -> sendUserBack());
 
@@ -52,10 +62,14 @@ public class SingleOrderActivity extends AppCompatActivity {
         totalAmount = findViewById(R.id.tvTotal);
         timeCreated = findViewById(R.id.tvCreatedAt);
         timeUpdated = findViewById(R.id.tvUpdatedAt);
-        cartItems = findViewById(R.id.tvCartItems);
+
+        recyclerView = findViewById(R.id.rvCartItems);
 
         orderIdentity = getIntent().getExtras().get("orderId").toString();
         int orderId = Integer.parseInt(orderIdentity);
+
+        buttonDispatchOrder = findViewById(R.id.buttonDispatch);
+        buttonDispatchOrder.setOnClickListener(view -> dispatchOrder(orderId));
 
         getOrderData(orderId);
 
@@ -84,9 +98,11 @@ public class SingleOrderActivity extends AppCompatActivity {
                 String time = order.getCreated_at();
                 String update = order.getUpdated_at();
 
-                //Cart retreived
-                ArrayList<CartItemsModel> cartItems = order.getCart();
-                String cart = cartItems.toString();
+                //Retreiving cart
+                ArrayList<CartItemsModel> cartItems = response.body()
+                        .getData()
+                        .getOrders()
+                        .getCart();
 
                 userName.setText(name);
                 userEmail.setText(email);
@@ -97,6 +113,14 @@ public class SingleOrderActivity extends AppCompatActivity {
                 timeCreated.setText(time);
                 timeUpdated.setText(update);
 
+                cartItemsAdapter = new CartItemsAdapter(cartItems);
+                recyclerView = findViewById(R.id.rvCartItems);
+
+                //Layout manager
+                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(SingleOrderActivity.this);
+                recyclerView.setLayoutManager(layoutManager);
+                recyclerView.setAdapter(cartItemsAdapter);
+
 
             }
 
@@ -106,6 +130,38 @@ public class SingleOrderActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void dispatchOrder(Integer orderId) {
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(baseUrl)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        GetData getData = retrofit.create(GetData.class);
+        Call<ModelClass2> call = getData.dispatchOrder(orderId);
+
+        call.enqueue(new Callback<ModelClass2>() {
+            @Override
+            public void onResponse(Call<ModelClass2> call, Response<ModelClass2> response) {
+                Toast.makeText(SingleOrderActivity.this, response.body().getStatus(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<ModelClass2> call, Throwable t) {
+                Toast.makeText(SingleOrderActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+        sendUserToMainActivity();
+    }
+
+    private void sendUserToMainActivity() {
+        Intent mainActivityIntent = new
+                Intent(SingleOrderActivity.this, MainActivity.class);
+        finish();
+        startActivity(mainActivityIntent);
     }
 
     private void sendUserBack() {

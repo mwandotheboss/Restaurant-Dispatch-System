@@ -139,6 +139,10 @@ class Order {
         this.cart = cart;
     }
 
+    public Order(String dispatch_status) {
+        this.dispatch_status = dispatch_status;
+    }
+
     @Override
     public String toString() {
         return "Order{" +

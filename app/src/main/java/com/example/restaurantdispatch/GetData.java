@@ -3,6 +3,7 @@ package com.example.restaurantdispatch;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -26,6 +27,9 @@ public interface GetData {
 
     @GET("v1/dispatch/order")
         //Response in a call object
-    Call<ModelClass2> getOrder(@Query("orderId") int orderId  );
+    Call<ModelClass2> getOrder(@Query("orderId") int orderId);
+
+    @POST("v1/dispatch/order")
+    Call<ModelClass2> dispatchOrder(@Query("orderId") int orderId);
 
 }
