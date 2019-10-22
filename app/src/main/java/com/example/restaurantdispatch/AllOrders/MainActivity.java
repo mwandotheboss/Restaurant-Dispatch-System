@@ -1,4 +1,4 @@
-package com.example.restaurantdispatch;
+package com.example.restaurantdispatch.AllOrders;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -9,10 +9,12 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
 
+import com.example.restaurantdispatch.R;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * MainActivity.java - App entry point
@@ -51,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
     private void setupTabIcons() {
         tabLayout.getTabAt(0).setIcon(tabsIcons[0]);
         tabLayout.getTabAt(1).setIcon(tabsIcons[1]);
+
     }
 
     private void setupViewPager(ViewPager viewPager) {

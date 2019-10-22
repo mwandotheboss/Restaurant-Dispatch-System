@@ -1,4 +1,4 @@
-package com.example.restaurantdispatch;
+package com.example.restaurantdispatch.AllOrders;
 
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -8,6 +8,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.restaurantdispatch.R;
+import com.example.restaurantdispatch.SingleOrder.SingleOrderActivity;
 
 import java.util.List;
 

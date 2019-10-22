@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".AllOrders.MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -27,7 +27,7 @@
                 android:layout_gravity="center"
                 android:fontFamily="sans-serif"
                 android:text="@string/restaurant_dispatch"
-                android:textColor="#ffffff"
+                android:textColor="@color/colorWhite"
                 android:textSize="30sp"
                 android:textStyle="bold" />
         </androidx.appcompat.widget.Toolbar>

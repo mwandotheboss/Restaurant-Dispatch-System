@@ -14,4 +14,12 @@
     <string name="time_created">Time Created</string>
     <string name="time_updated">Time Updated</string>
     <string name="dispatch_order">Dispatch Order</string>
+    <string name="product_name">Product Name</string>
+    <string name="quantity">Quantity</string>
+    <string name="price">price</string>
+    <string name="size">Size</string>
+    <string name="accompaniment">Accompaniment</string>
+    <string name="description">Description</string>
+    <string name="ordered_items">Ordered Items</string>
+    <string name="details">Details</string>
 </resources>

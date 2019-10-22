@@ -1,10 +1,12 @@
 package com.example.restaurantdispatch;
 
+import com.example.restaurantdispatch.AllOrders.ModelClass;
+import com.example.restaurantdispatch.SingleOrder.ModelClass2;
+
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -16,12 +18,11 @@ import retrofit2.http.Query;
 
 public interface GetData {
 
-    String baseUrl = "https://demo.kilimanjarofood.co.ke/api/";
+    //String baseUrl = "https://demo.kilimanjarofood.co.ke/api/";
 
     @Headers("Content-Type: application/json")
     //Request type
     @GET("v1/dispatch/orders")
-
         //Response in a call object
     Call<ModelClass> getOrders();
 

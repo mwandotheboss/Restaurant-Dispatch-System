@@ -1,21 +1,15 @@
-package com.example.restaurantdispatch;
+package com.example.restaurantdispatch.SingleOrder;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-/**
- * ModelClass.java - Model class to access the outer nodes of JSON
- *
- * @version 1.0
- * @author Zephania Mwando
- */
-public class ModelClass {
+public class ModelClass2 {
     @SerializedName("status")
     @Expose
     private String status;
     @SerializedName("data")
     @Expose
-    private Data data;
+    private Data2 data;
 
     public String getStatus() {
         return status;
@@ -25,17 +19,17 @@ public class ModelClass {
         this.status = status;
     }
 
-    public Data getData() {
+    public Data2 getData() {
         return data;
     }
 
-    public void setData(Data data) {
+    public void setData(Data2 data) {
         this.data = data;
     }
 
     @Override
     public String toString() {
-        return "ModelClass{" +
+        return "ModelClass2{" +
                 "status='" + status + '\'' +
                 ", data=" + data +
                 '}';

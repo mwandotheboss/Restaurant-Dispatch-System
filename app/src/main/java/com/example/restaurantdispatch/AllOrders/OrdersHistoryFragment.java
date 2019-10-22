@@ -1,5 +1,6 @@
-package com.example.restaurantdispatch;
+package com.example.restaurantdispatch.AllOrders;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -12,6 +13,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import com.example.restaurantdispatch.AllOrders.ModelClass;
+import com.example.restaurantdispatch.AllOrders.Orders;
+import com.example.restaurantdispatch.AllOrders.OrdersHistoryAdapter;
+import com.example.restaurantdispatch.GetData;
+import com.example.restaurantdispatch.R;
+import com.example.restaurantdispatch.SingleOrder.SingleOrderActivity;
 
 import java.util.ArrayList;
 
@@ -62,7 +70,12 @@ public class OrdersHistoryFragment extends Fragment {
                 recyclerViewHistory = getView().findViewById(R.id.previous_orders);
 
                 //Layout manager
-                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+                LinearLayoutManager layoutManager = new
+                        LinearLayoutManager(getContext(),
+                        LinearLayoutManager.VERTICAL,
+                        true);
+
+                layoutManager.setStackFromEnd(true);
                 recyclerViewHistory.setLayoutManager(layoutManager);
                 recyclerViewHistory.setAdapter(ordersHistoryAdapter);
             }
@@ -83,5 +96,59 @@ public class OrdersHistoryFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_orders_history, container, false);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(baseUrl)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        GetData getData = retrofit.create(GetData.class);
+        Call<ModelClass> call = getData.getOrders();
+
+        // Set up progress before call
+        final ProgressDialog progressDialog;
+        progressDialog = new ProgressDialog(getActivity());
+        //show progress dialog
+        progressDialog.setTitle("Fetching Orders");
+        progressDialog.setMessage("Please wait...");
+        progressDialog.setCanceledOnTouchOutside(true);
+        progressDialog.show();
+
+        call.enqueue(new Callback<ModelClass>() {
+            @Override
+            public void onResponse(Call<ModelClass> call, Response<ModelClass> response) {
+
+                progressDialog.dismiss();
+
+                ArrayList<Orders> ordersList = response.body().getData().getOrders();
+                ordersHistoryAdapter = new OrdersHistoryAdapter(ordersList);
+                recyclerViewHistory = getView().findViewById(R.id.previous_orders);
+
+                //Layout manager
+                LinearLayoutManager layoutManager = new
+                        LinearLayoutManager(getContext(),
+                        LinearLayoutManager.VERTICAL,
+                        true);
+
+                layoutManager.setStackFromEnd(true);
+                recyclerViewHistory.setLayoutManager(layoutManager);
+                recyclerViewHistory.setAdapter(ordersHistoryAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<ModelClass> call, Throwable t) {
+               progressDialog.dismiss();
+
+                Toast.makeText(getActivity(),
+                        "Unable to load Orders" + t.getMessage(),
+                        Toast.LENGTH_SHORT)
+                        .show();
+            }
+        });
     }
 }

@@ -4,7 +4,7 @@
     android:id="@+id/order_card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="#19E920"
+    app:cardBackgroundColor="@color/colorPrimary"
     app:cardCornerRadius="2dp"
     app:cardUseCompatPadding="true">
 
@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif"
-            android:text="ID"
+            android:text="@string/order_id"
             android:textColor="#000000" />
 
         <TextView
@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif"
-            android:text="Name"
+            android:text="@string/user_name"
             android:textColor="#000000" />
 
         <TextView
@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif"
-            android:text="Email"
+            android:text="@string/user_email"
             android:textColor="#000000" />
 
         <TextView
@@ -43,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif"
-            android:text="Dispatch Status"
+            android:text="@string/dispatch_status"
             android:textColor="#000000" />
 
 

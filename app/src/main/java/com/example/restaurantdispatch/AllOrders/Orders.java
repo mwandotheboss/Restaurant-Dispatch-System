@@ -1,4 +1,4 @@
-package com.example.restaurantdispatch;
+package com.example.restaurantdispatch.AllOrders;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

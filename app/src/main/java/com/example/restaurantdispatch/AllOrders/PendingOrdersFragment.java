@@ -1,5 +1,6 @@
-package com.example.restaurantdispatch;
+package com.example.restaurantdispatch.AllOrders;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -12,6 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.restaurantdispatch.AllOrders.ModelClass;
+import com.example.restaurantdispatch.AllOrders.Orders;
+import com.example.restaurantdispatch.AllOrders.PendingOrdersAdapter;
+import com.example.restaurantdispatch.GetData;
+import com.example.restaurantdispatch.R;
+import com.example.restaurantdispatch.SingleOrder.SingleOrderActivity;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -20,7 +28,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
 
 /**
  * PendingOrdersFragment.java - A class that displays all orders
@@ -53,9 +60,19 @@ public class PendingOrdersFragment extends Fragment {
         GetData getData = retrofit.create(GetData.class);
         Call<ModelClass> call = getData.getOrders();
 
+        // Set up progress before call
+        final ProgressDialog progressDialog;
+        progressDialog = new ProgressDialog(getActivity());
+        //show progress dialog
+        progressDialog.setTitle("Fetching Orders");
+        progressDialog.setMessage("Please wait...");
+        progressDialog.setCanceledOnTouchOutside(true);
+        progressDialog.show();
+
         call.enqueue(new Callback<ModelClass>() {
             @Override
             public void onResponse(Call<ModelClass> call, Response<ModelClass> response) {
+                progressDialog.dismiss();
                 ArrayList<Orders> ordersList = response.body()
                         .getData()
                         .getOrders();
@@ -64,13 +81,20 @@ public class PendingOrdersFragment extends Fragment {
                 recyclerView = Objects.requireNonNull(getView()).findViewById(R.id.pending_orders);
 
                 //Layout manager
-                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+                LinearLayoutManager layoutManager = new
+                        LinearLayoutManager(getContext(),
+                        LinearLayoutManager.VERTICAL,
+                        true);
+
+                layoutManager.setStackFromEnd(true);
                 recyclerView.setLayoutManager(layoutManager);
                 recyclerView.setAdapter(pendingOrdersAdapter);
             }
 
             @Override
             public void onFailure(Call<ModelClass> call, Throwable t) {
+
+                progressDialog.dismiss();
 
                 Toast.makeText(getActivity(),
                         "Unable to load Orders" + t.getMessage(),
