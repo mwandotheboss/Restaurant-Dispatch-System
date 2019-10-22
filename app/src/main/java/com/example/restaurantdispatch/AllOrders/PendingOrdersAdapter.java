@@ -57,10 +57,16 @@ public class PendingOrdersAdapter extends RecyclerView.Adapter<PendingOrdersAdap
         String status = ordersList.get(position).getDispatch_status();
         final String orderIdentity = ordersList.get(position).getId();
         if (status.equals("0")) {
-            holder.orderId.setText(ordersList.get(position).getId());
-            holder.userName.setText(ordersList.get(position).getName());
-            holder.userEmail.setText(ordersList.get(position).getEmail());
-            holder.orderDispatchStatus.setText(ordersList.get(position).getDispatch_status());
+
+            String id = "Order: " + ordersList.get(position).getId();
+            String name = "Customer Name: " + ordersList.get(position).getName();
+            String email = "Customer Email: "+ ordersList.get(position).getEmail();
+            String dispatchStatus = "Dispatch Status: Not Dispatched";
+
+            holder.orderId.setText(id);
+            holder.userName.setText(name);
+            holder.userEmail.setText(email);
+            holder.orderDispatchStatus.setText(dispatchStatus);
 
             holder.ordersView.setOnClickListener(view -> {
                 Intent clickOrderIntent = new Intent(view.getContext(),

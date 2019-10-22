@@ -61,21 +61,20 @@ public class OrdersHistoryAdapter extends RecyclerView.Adapter<OrdersHistoryAdap
             final String orderIdentity = ordersList.get(position).getId();
             int id = Integer.parseInt(orderIdentity);
 
-            String personName = ordersList.get(position).getName();
             String personEmail = ordersList.get(position).getEmail();
-            //  String personPhone = ordersList.get(position).
-            String personDispatchStatus = ordersList.get(position).getDispatch_status();
 
-
-            holder.orderId.setText(ordersList.get(position).getId());
-            holder.userName.setText(personName);
-            holder.userEmail.setText(personEmail);
-            holder.orderDispatchStatus.setText(personDispatchStatus);
+            String orderId = "Order: " + ordersList.get(position).getId();
+            String name = "Customer Name: " + ordersList.get(position).getName();
+            String personName = "Customer Email: "+ ordersList.get(position).getEmail();
 
             String alert1 = "Customer's Name: " + personName;
             String alert2 = "Customer's Email: " + personEmail;
             String alert3 = "Order Dispatch Status: Dispatched";
 
+            holder.orderId.setText(orderId);
+            holder.userName.setText(name);
+            holder.userEmail.setText(personEmail);
+            holder.orderDispatchStatus.setText(alert3);
             //Alert Dialog for more details
             holder.ordersView.setOnClickListener(view -> {
 
