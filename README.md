@@ -1,6 +1,6 @@
 # Restaurant-Dispatch
 
-This is an android application that enables the restaurant receive orders from
+This is an Android application that enables the restaurant receive orders from
 their e-commerce store, view an order’s cart/food items, then dispatch them once
 the order has been prepared.
 
